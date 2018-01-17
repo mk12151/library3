@@ -16,11 +16,14 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::get('admin', 'AdminController');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/result', 'ResursiController@getData');
 Route::get('/result/{id}', 'ResursiController@show');
 Route::get('/result2', 'ResursiController@search');
+Route::get('advanced','ResursiController@advancedsearch');
+Route::get('pasutijums', function(){
+	return view('pasutits');});
 
 
 Route::get('crud', 'ResursiController@home');
@@ -42,3 +45,4 @@ Route::get('crud/update/{id}', 'ResursiController@update');
 Route::post('crud/edit/{id}', 'ResursiController@edit');
 
 Route::get('crud/delete/{id}', 'ResursiController@destroy');
+Route::get('/email', 'ResursiController@email')->name('sendEmail');

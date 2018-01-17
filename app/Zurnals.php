@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Zurnals extends Model
 {
 	protected $table='zurnals';

@@ -7,6 +7,10 @@ use \DB;
 use App\Resursi;
 use App\Gramata;
 use App\Zurnals;
+use Mail;
+use App\Mail\BookOrder;
+use Auth;
+
 class ResursiController extends Controller
 {
     /**
@@ -18,11 +22,18 @@ class ResursiController extends Controller
 
 public function __construct() {
         // only Admin has access
-     //   $this->middleware('admin')->only(['create','store','update', 'destroy']);
+       $this->middleware('admin')->only(['create','store','update', 'edit', 'destroy']);
     }
 
-    public function home(){
-        $article=Resursi::all();
+
+
+    public function home(Request $request){
+        $init=$request->kd;
+        if($init=='2'){ $article=Resursi::all()->sortBy('nosaukums');};
+        if($init=='3'){ $article=Resursi::all()->sortBy('gads');};
+
+       if($init!='2' && $init!='3') $article=Resursi::all()->sortBy('id');
+       
         return view('crud', ['article'=>$article]);
     }
 
@@ -30,10 +41,7 @@ public function __construct() {
 
     public function index()
     {
-    
-    
-        return view('result');
-    
+            return view('result');
     }
 
     /**
@@ -55,23 +63,18 @@ public function __construct() {
     public function store(Request $request)
     {
 
-        //$article= Resursi::all();
-      //  echo '<pre>';
-        //print_r($article);
-        //echo '</pre>';
-
         $data = $request->all();
 
         $this->validate($request, [
             'autors' => 'nullable',
-            'gads' => 'nullable|numeric',
+            'gads' => 'nullable|numeric|between:500,2018',
             'nosaukums' => 'required|max:100',
             'formats' => 'required|max:60',
             'udk' => 'required|max:60',
             'atslegvardi' => 'required|max:100',
             'lpp' => 'required|numeric',
             'gramata' => 'nullable|exists:gramata,ISBN',
-            'zurnals' => 'nullable|exists:zurnals,id',
+            'zurnals' => 'nullable|exists:zurnals,ISSN',
         ]);
 
         $i=$request->gramata;
@@ -86,8 +89,6 @@ $ISSN = DB::table('zurnals')
             ->value('zurnals.id');
 
 
-
-
         $objekts=new Resursi();
         $objekts->autors=$request->input('autors');
         $objekts->gads=$request->input('gads');
@@ -100,11 +101,8 @@ $ISSN = DB::table('zurnals')
         $objekts->zurnals()->associate(Zurnals::find($ISSN));
          $objekts->save();
 
-        // echo "$i";
-        // echo "$IS";
 
   return redirect('/crud')->with('info','Veiksmīgi pievienots!' );
-   //  return redirect()->action('ResursiController@home', array($request->id))->withMessage('Successfully added new conference!');
     }
 
     /**
@@ -128,14 +126,14 @@ $ISSN = DB::table('zurnals')
     {
         $this->validate($request, [
             'autors' => 'nullable',
-            'gads' => 'nullable|numeric',
+            'gads' => 'nullable|numeric|between:500,2018',
             'nosaukums' => 'required|max:100',
             'formats' => 'required|max:60',
             'udk' => 'required|max:60',
             'atslegvardi' => 'required|max:100',
             'lpp' => 'required|numeric',
             'gramata' => 'nullable|exists:gramata,ISBN',
-            'zurnals' => 'nullable|exists:zurnals,id',
+            'zurnals' => 'nullable|exists:zurnals,ISSN',
         ]);
 
         $i=$request->gramata;
@@ -191,20 +189,55 @@ $data=array(
        Resursi::where('id',$id)
        ->delete();
         return redirect('/crud')->with('info','Veiksmīgi izdzēsts!' );
-
-      
     }
 
-    public function getData(){
-        $data['data']=DB::table('resurs')->get();
-        if(count($data)>0)
-            {return view('result', $data);}
-        else
-            {return view('result');}
+    public function getData(Request $request){
+               $name=$request->nosaukums;
+         $resultats = DB::table('resurs')
+            ->where('resurs.nosaukums', 'like', '%'.$name.'%')
+            ->orderBy('resurs.id')
+            ->get();
+
+             
+        return view('result', ['resultats'=>$resultats]);
+    }
+
+  public function search(Request $request){
+      return view('search_result');
     }
 
 
-    public function search(){
-            {return view('search_result');}
-    }
+public function advancedsearch(Request $request){
+
+            $autors=$request->autors;
+            $nosaukums=$request->nosaukums;
+            $atsv=$request->atslegvardi;
+            $no=$request->gads_no;
+            $lidz=$request->lidz;
+
+    $query = DB::table('resurs')
+    ->orderBy('resurs.id');
+            
+
+    if($autors!=''){$query->where('resurs.autors','like', '%'.$autors.'%');}
+    if($nosaukums!=''){$query->where("nosaukums",'like', '%'.$nosaukums.'%');}
+    if($atsv!=''){$query->where("atslegvardi",'like', '%'.$atsv.'%');}
+    if($no!=''){$query->where("gads", '>=', $no);}
+    if($lidz!=''){$query->where("gads", '<=', $lidz);}
+$resultats= $query->get(); 
+
+    return view('result', ['resultats'=>$resultats]);
+
+
+}
+
+public function email(Request $request){
+
+    Mail::to(Auth::user()->email)->send(new BookOrder());
+
+return redirect('result')->with('info','Jums piegdādāts e-pasts!');
+}
+
+
+  
 }

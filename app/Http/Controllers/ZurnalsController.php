@@ -12,6 +12,12 @@ class ZurnalsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+   {
+      // only Admin have access
+       $this->middleware('admin');
+   }
     public function index()
     {
         //
@@ -46,7 +52,7 @@ class ZurnalsController extends Controller
        $objekts->save();
 
      
- return redirect('/crud')->with('info','Successfully added' );
+ return redirect('/crud')->with('info','Veiksmīgi pievienots!' );
         //return redirect()->action('ResursiController@home', array($request->id))->withMessage('Successfully added new conference!');
     }
 
