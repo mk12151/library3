@@ -75,6 +75,7 @@ public function __construct() {
             'lpp' => 'required|numeric',
             'gramata' => 'nullable|exists:gramata,ISBN',
             'zurnals' => 'nullable|exists:zurnals,ISSN',
+            'image_small' => 'image|mimes:png',
         ]);
 
         $i=$request->gramata;
@@ -99,10 +100,15 @@ $ISSN = DB::table('zurnals')
         $objekts->lpp=$request->input('lpp');
         $objekts->gramata()->associate(Gramata::find($ISBN));
         $objekts->zurnals()->associate(Zurnals::find($ISSN));
-         $objekts->save();
+        $objekts->save();
 
 
-  return redirect('/crud')->with('info','Veiksmīgi pievienots!' );
+         $images = $objekts->images();
+       // print_r($images);
+       $file = $request->file('image_small')->move($images['server_path'], $images['image_small']);
+
+
+ return redirect('/crud')->with('info','Veiksmīgi pievienots!' );
     }
 
     /**

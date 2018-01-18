@@ -5759,11 +5759,11 @@ button.list-group-item-danger.active:focus {
   border-bottom-color: #3db5d8;
 }
 .panel-warning {
-  border-color: #d08002;
+  border-color: #2F2F2F;
 }
 .panel-warning > .panel-heading {
   color: #ffffff;
-  background-color: #e99002;
+  background-color: #2F2F2F;
   border-color: #d08002;
 }
 .panel-warning > .panel-heading + .panel-collapse > .panel-body {

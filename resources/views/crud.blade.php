@@ -13,22 +13,22 @@
         @endif
         <br>
 
-        <a href="{{ url('crud/create') }}" class="btn btn-success">Pievienot jaunu resursu</a> 
-        <a href="{{ url('crud/create_gramata') }}" class="btn btn-success">Pievienot jaunu grāmatu</a> 
-        <a href="{{ url('crud/create_zurnals') }}" class="btn btn-success">Pievienot jaunu žurnālu</a> 
+        <a href="{{ url('crud/create') }}" class="btn btn-success">@lang('messages.add_new_rec')</a> 
+        <a href="{{ url('crud/create_gramata') }}" class="btn btn-success">@lang('messages.add_new_b')</a> 
+        <a href="{{ url('crud/create_zurnals') }}" class="btn btn-success">@lang('messages.add_new_j')</a> 
         <br><br>
 
-  <label  class="col-sm-2"><h4>Kārtot pēc: </h4></label>
+  <label  class="col-sm-2"><h4>@lang('messages.order_by'): </h4></label>
 
-  <a href="{{ action('ResursiController@home', ['kd'=>'2'] ) }}" type="button" class="btn">Nosaukuma</a>  <a href="{{ action('ResursiController@home', ['kd'=>'3'] ) }}" type="button" class="btn">Datuma</a> 
+  <a href="{{ action('ResursiController@home', ['kd'=>'2'] ) }}" type="button" class="btn">@lang('messages.title1')</a>  <a href="{{ action('ResursiController@home', ['kd'=>'3'] ) }}" type="button" class="btn">@lang('messages.year1')</a> 
 <br> <br>
 <table class="table table-striped table-hover ">
   <thead>
     <tr>
       <th>ID</th>
-      <th>Nosaukums</th>
-      <th>Autors</th>
-      <th>Gads</th>
+      <th>@lang('messages.title')s</th>
+      <th>@lang('messages.author')</th>
+      <th>@lang('messages.year')</th>
     </tr>
   </thead>
   <tbody>
@@ -42,9 +42,9 @@
       <td>{{$article->autors}}</td>
       <td>{{$article->gads}}</td>
       <td>
-            <a href='{{ url("result/{$article->id}") }}' class="btn btn-primary">Skatīt</a> |
-            <a href='{{ url("crud/update/{$article->id}") }}' class="btn btn-success">Rediģēt</a> |
-            <a href='{{ url("crud/delete/{$article->id}") }}' class="btn btn-danger">Dzēst</a>
+            <a href='{{ url("result/{$article->id}") }}' class="btn btn-primary">@lang('messages.view')</a> |
+            <a href='{{ url("crud/update/{$article->id}") }}' class="btn btn-success">@lang('messages.edit')</a> |
+            <a href='{{ url("crud/delete/{$article->id}") }}' class="btn btn-danger">@lang('messages.delete')</a>
       </td>
     </tr>
 

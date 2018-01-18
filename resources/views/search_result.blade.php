@@ -8,7 +8,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h4>Izvērstā meklēšana  </h4>
+                    <h4>@lang('messages.adv_ser')</h4>
                 </div>
                
 
@@ -17,37 +17,37 @@
 
                       {{csrf_field()}}
 
-                         <h4>Atrast pēc: </h4>
+                         <h4>@lang('messages.ser_by'): </h4>
   <div class="form-group">
-    <label for="exampleFormControlInput1">Autora</label>
-    <input type="text" class="form-control" name="autors" id="exampleFormControlInput1" placeholder="Vārds, Uzvārds">
+    <label for="exampleFormControlInput1">@lang('messages.author')</label>
+    <input type="text" class="form-control" name="autors" id="exampleFormControlInput1" placeholder="@lang('messages.nam_surn')">
   </div>
 
 
 <div class="form-group">
-    <label for="exampleFormControlInput1">Nosaukuma</label>
-    <input type="text" class="form-control" name="nosaukums" id="exampleFormControlInput1" placeholder="Nosaukums">
+    <label for="exampleFormControlInput1">@lang('messages.title')</label>
+    <input type="text" class="form-control" name="nosaukums" id="exampleFormControlInput1" placeholder="@lang('messages.title')">
   </div>
 
 <div class="form-group">
-    <label for="exampleFormControlInput1">Atslēgvārda</label>
-    <input type="text" class="form-control" name="atslegvardi" id="exampleFormControlInput1" placeholder="Atslēgvārds">
+    <label for="exampleFormControlInput1">@lang('messages.atsv')</label>
+    <input type="text" class="form-control" name="atslegvardi" id="exampleFormControlInput1" placeholder="@lang('messages.atsv')">
   </div>
 
 <div class="form-group">
-   <label for="exampleFormControlInput1">Gads no</label>
-    <input type="text" class="form-control" name="gads_no" id="exampleFormControlInput1" placeholder="no">
+   <label for="exampleFormControlInput1">@lang('messages.year_from')</label>
+    <input type="text" class="form-control" name="gads_no" id="exampleFormControlInput1" placeholder="@lang('messages.year_from')">
   </div>
 
 <div class="form-group">
-  <label for="exampleFormControlInput1">Gads līdz</label>
-    <input type="text" class="form-control" name="lidz" id="exampleFormControlInput1" placeholder="līdz">
+  <label for="exampleFormControlInput1">@lang('messages.year_to')</label>
+    <input type="text" class="form-control" name="lidz" id="exampleFormControlInput1" placeholder="@lang('messages.year_to')">
   </div>               
 
-                  <input type="submit" value="Meklēt" class="btn btn-success"> 
+                  <input type="submit" value="@lang('messages.search')" class="btn btn-success"> 
                     </form>   
                     <br>
-                    <a href="{{ url('/') }}"><button class="btn btn-success">Atpakaļ</button></a>
+                    <a href="{{ url('/') }}"><button class="btn btn-success">@lang('messages.back')</button></a>
 
                      
 

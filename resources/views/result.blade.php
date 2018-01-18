@@ -4,24 +4,24 @@
   <div class="container">
     <div class="row">
         <div class="display-1">
-            <h3>Bibliotēkas katalogs</h3></div>
+            <h3>@lang('messages.lib_cat')</h3></div>
         <form action="/result">
           <div class="input-group col-xs-4">
-            <input type="text" class="form-control " name="nosaukums" placeholder="Nosaukums">
+            <input type="text" class="form-control " name="nosaukums" placeholder="@lang('messages.title')">
               <div class="input-group-btn">
-                <button class="btn btn-success" type="submit">Meklēt</button>
+                <button class="btn btn-success" type="submit">@lang('messages.search')</button>
               </div>
           </div>        
         </form> 
 
         <form action="/result2">
-          <input class="btn" type="submit" id="special" value="Izvērstā meklēšana"></form>  
+          <input class="btn" type="submit" id="special" value="@lang('messages.adv_ser')"></form>  
         <br>
 
         <?php $count=0;?>
           @foreach($resultats as $value) <?php $count++; ?>@endforeach
-        <div class="content">
-            <?php echo "Rezultāti: ".$count;?>
+        <div class="content">  @lang('messages.results'):
+            <?php echo " ".$count;?>
             <br>
             @if(session('info'))
             <br>
@@ -35,11 +35,11 @@
           <table class="table table-hover">
               <thead>
                 <tr>
-                  <th>Autors</th>
-                  <th>Nosaukums</th>
-                  <th>Gads</th>
-                  <th>Lpp</th>
-                  <th>Formāts</th>
+                  <th>@lang('messages.author')</th>
+                  <th>@lang('messages.title')</th>
+                  <th>@lang('messages.year')</th>
+                  <th>@lang('messages.pages')</th>
+                  <th>@lang('messages.format')</th>
                   <th></th>
                 </tr>
               </thead>
@@ -53,7 +53,7 @@
                       <td>{{$value->formats}}</td>
                       <td>
                         <a href="{{ url('result', $value->id) }}">
-                        <button class="btn btn-success">Skatīt</button></a>
+                        <button class="btn btn-success">@lang('messages.view')</button></a>
                       </td>
                     </tr>
                   @endforeach

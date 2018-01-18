@@ -27,4 +27,16 @@ public function gramata()
         return $this->belongsTo('App\Zurnals');
     }
 
+
+     public function images() {
+        return array(
+            'server_path' => public_path().'/uploads/',
+            'asset_path' => 'uploads/',
+            'image_small' => $this->id.'_small.png',
+
+        );
+    }
+
+
+
 }

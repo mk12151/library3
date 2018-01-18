@@ -10,7 +10,7 @@
             	  <form class="form-horizontal" method="POST" action="{{url('crud/insert_zurnals')}}">
 {{csrf_field()}}
 
-        <legend>Izveidot jaunu ierakstu</legend>
+        <legend>@lang('messages.add_new_j')</legend>
 
 @if(count($errors)>0)
 @foreach($errors->all() as $error)
@@ -32,8 +32,8 @@
   <input name="nr" class="form-control" id="disabledInput" placeholder="Nr" type="text">
 </div>
 
- <button type="submit" class="btn btn-success">Saglabāt</button>
-<a href="{{url('crud')}}" class="btn btn-success">Atcelt</a>
+ <button type="submit" class="btn btn-success">@lang('messages.save')</button>
+<a href="{{url('crud')}}" class="btn btn-success">@lang('messages.cancel')</a>
 </form>
 
     </div>

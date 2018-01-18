@@ -14,7 +14,7 @@
                         <p class="has-error">{{ $message }}</p>
                     @endforeach
 
-                   <h4>Jūs esiet autorizējies, {{ Auth::user()->name }}</h4>
+                   <h4>@lang('messages.auhorized'), {{ Auth::user()->name }}</h4>
                 </div>
             </div>
         </div>

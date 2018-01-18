@@ -46,3 +46,6 @@ Route::post('crud/edit/{id}', 'ResursiController@edit');
 
 Route::get('crud/delete/{id}', 'ResursiController@destroy');
 Route::get('/email', 'ResursiController@email')->name('sendEmail');
+
+Route::get('lang/{lang}', function ($locale) {
+ return redirect('/')->withCookie(cookie('language', $locale));});
